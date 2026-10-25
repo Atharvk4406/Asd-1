@@ -1,0 +1,213 @@
+You should use 3 separate prompts when you get your sensors tomorrow. Each prompt will generate documentation for one part of your project, while keeping the code consistent across Arduino, Python, and the frontend.
+
+These prompts are designed for regular ChatGPT, including ChatGPT without login. They do not require Codex, agents, or specialized tools.
+
+1. Prompt for Arduino C++ documentation
+
+Use this after you know which sensors you will use.
+
+Copy this prompt:
+
+Act as an expert Arduino C++ developer and electronics instructor.
+
+I am participating in a hardware hackathon and am a beginner in Arduino. Generate complete Arduino C++ documentation for my project using the following details.
+
+Project: [PROJECT NAME]
+Problem statement: [PROBLEM]
+SDG: [SDG]
+Arduino board: Arduino Uno
+Available sensors: [SENSOR NAMES AND MODULE NUMBERS]
+Required features: [FEATURES]
+Available components: [BREADBOARD, JUMPER WIRES, RESISTORS, ETC.]
+
+Create the documentation in the following order:
+
+1. Explain the purpose of each sensor and the data it provides.
+2. Give an exact pin-to-pin wiring table for every sensor, including VCC, GND, signal pins, voltage requirements, and communication protocols.
+3. Explain the complete circuit and identify pin conflicts or electrical compatibility issues.
+4. List the Arduino libraries required and explain how to install them.
+5. Provide a separate minimal test sketch for each sensor.
+6. Provide the complete integrated Arduino C++ sketch for the project.
+7. Explain every important part of the code, including setup(), loop(), pinMode(), digitalRead(), analogRead(), sensor libraries, and Serial communication.
+8. Implement the required sensor-reading logic, calculations, thresholds, and decision-making.
+9. Make the Arduino send structured, consistent data to Python through USB serial communication.
+10. Explain the serial data format and provide realistic example outputs.
+11. Include error handling for invalid readings and sensor failures.
+12. Explain how to upload the code, select the board and port, and test the sensors using Serial Monitor.
+13. Provide troubleshooting steps for wiring errors, incorrect readings, missing libraries, and serial communication problems.
+
+Requirements:
+- Provide complete, compilable code, not pseudocode.
+- Use only the components I actually have.
+- Verify voltage compatibility and avoid unsafe wiring.
+- Keep pin assignments consistent throughout the documentation.
+- Explain everything for a beginner.
+- Do not invent sensor readings or claim physical testing was performed.
+- If module details are missing, ask me for the necessary information.
+
+Finish with a checklist to verify that the Arduino hardware and code work before integrating Python.
+
+
+---
+
+2. Prompt for Python backend documentation
+
+Use this after generating the Arduino code. Paste the final Arduino code into this prompt so the Python program reads exactly what your Arduino sends.
+
+Copy this prompt:
+
+Act as an expert Python developer specializing in Arduino hardware integration and Flask backend development.
+
+I need complete Python backend documentation for my hackathon project.
+
+Project: [PROJECT NAME]
+Operating system: [WINDOWS / LINUX / macOS]
+Arduino board: Arduino Uno
+Sensors: [SENSOR NAMES]
+Required features: [FEATURES]
+
+Here is my final Arduino code:
+
+[PASTE THE COMPLETE ARDUINO C++ CODE HERE]
+
+Generate the Python backend implementation and documentation in this order:
+
+1. Explain how data travels from Arduino to Python through USB serial communication.
+2. Explain how to identify the correct Arduino serial port.
+3. Provide the complete requirements.txt file and installation commands.
+4. Provide the exact project folder structure.
+5. Provide complete Python code using pySerial and Flask.
+6. Read and parse the exact serial data format produced by my Arduino code.
+7. Validate incoming data and handle missing values, invalid readings, malformed messages, and disconnections.
+8. Implement the project's calculations, thresholds, status classification, and required decision logic.
+9. Create API endpoints that return the latest sensor readings and status in JSON.
+10. Add timestamps and recent reading history where useful.
+11. Explain how to run the application and configure the serial port.
+12. Explain how to test the API and verify that its values match the physical sensors.
+13. Provide troubleshooting steps for port conflicts, incorrect baud rates, missing packages, and connection failures.
+
+Requirements:
+- Provide complete, executable code.
+- Keep the serial port and baud rate consistent with the Arduino code.
+- Never assume that incoming readings are valid.
+- Do not display fake values as real sensor data.
+- Close the serial connection properly when the application stops.
+- Explain every important function in beginner-friendly language.
+- Do not require paid services or cloud deployment.
+- Do not claim the code has been physically tested unless it has.
+
+The backend must be ready to supply real sensor readings to an HTML, CSS, and JavaScript dashboard.
+
+Finish with exact installation, execution, and testing instructions.
+
+
+---
+
+3. Prompt for HTML, CSS and JavaScript dashboard documentation
+
+Use this after you have the Arduino code and Python backend. Paste the backend API response format so the frontend uses the correct field names.
+
+Copy this prompt:
+
+Act as an expert frontend developer specializing in HTML, CSS, JavaScript, dashboards, and real-time sensor monitoring.
+
+Create complete frontend documentation and code for my Arduino hackathon project.
+
+Project: [PROJECT NAME]
+Problem statement: [PROBLEM]
+SDG: [SDG]
+Sensors: [SENSOR NAMES]
+Required features: [FEATURES]
+
+Python backend API:
+[PASTE THE API ENDPOINTS AND EXAMPLE JSON RESPONSE HERE]
+
+Generate the frontend in the following order:
+
+1. Explain how the frontend receives real sensor data from the Python backend.
+2. Provide the complete project folder structure.
+3. Provide the complete HTML file.
+4. Provide the complete CSS styling, either in a separate CSS file or clearly organized within the HTML.
+5. Provide the complete JavaScript code for fetching and displaying sensor data.
+6. Create suitable sensor cards with correct measurement names and units.
+7. Display current readings, system status, connection status, and last update time.
+8. Add appropriate warning and critical indicators based on the project's actual thresholds.
+9. Add a live-updating chart and recent history if useful.
+10. Include loading, disconnected, invalid-data, and API-error states.
+11. Make the dashboard responsive for laptop and mobile screens.
+12. Explain how the frontend connects to the Flask API and how often it refreshes.
+13. Explain how to run the complete application and verify that physical sensor changes appear on the dashboard.
+14. Provide troubleshooting steps for API errors, incorrect JSON field names, CORS issues, and charts that do not update.
+
+Requirements:
+- Provide complete, working HTML, CSS, and JavaScript code.
+- Match the actual API response format provided above.
+- Never hardcode sample readings as if they were real measurements.
+- Do not invent sensor data or hide connection failures.
+- Keep the UI professional, readable, and suitable for a hackathon demonstration.
+- Avoid unnecessary frameworks or build tools.
+- Use only the features needed for my project.
+- Explain the code in beginner-friendly language.
+- Do not require paid APIs or cloud hosting.
+
+Finish with exact steps to start the backend, open the dashboard, and test the complete hardware-to-frontend data flow.
+
+
+---
+
+4. The correct order to use these prompts
+
+Follow this sequence to avoid integration problems.
+
+Step	What you do	What you obtain
+
+1	Enter your actual sensors and components in Prompt 1	Arduino wiring and C++ code
+2	Test each sensor using Arduino Serial Monitor	Verified individual sensor readings
+3	Paste the final Arduino code into Prompt 2	Python backend
+4	Test the Python backend against actual serial data	Working serial-to-API integration
+5	Paste the backend's API format into Prompt 3	HTML/CSS/JavaScript dashboard
+6	Run all three components together	Complete hardware-software prototype
+
+
+5. One final integration prompt
+
+After all three parts are generated, use this prompt to check consistency.
+
+Act as a senior engineer reviewing my complete Arduino hardware-software hackathon project.
+
+I will provide:
+1. Arduino C++ code.
+2. Python Flask backend code.
+3. HTML, CSS, and JavaScript frontend code.
+4. Sensor wiring details.
+5. Project requirements.
+
+Review the entire system for integration errors.
+
+Check:
+- Sensor pin assignments and voltage compatibility.
+- Arduino library requirements.
+- Serial baud-rate consistency.
+- Exact serial data format and Python parsing.
+- Python API endpoints and JSON field names.
+- Frontend API URLs and field references.
+- Sensor units and threshold calculations.
+- Invalid readings and disconnection handling.
+- Missing dependencies and incorrect file paths.
+- Whether the setup and execution instructions are complete.
+
+Identify each problem, explain why it occurs, and provide the corrected code for the affected files.
+
+Do not rewrite working sections unnecessarily. Do not claim physical testing was performed. Keep the implementation beginner-friendly and consistent across all files.
+
+Here are my project files:
+
+[PASTE ARDUINO CODE]
+
+[PASTE PYTHON CODE]
+
+[PASTE HTML/CSS/JAVASCRIPT CODE]
+
+[PASTE WIRING DETAILS AND REQUIREMENTS]
+
+My recommendation: Save these four prompts in a text file on your phone. Once you receive the components and finalize your project, fill in the details and use them in order. The most important rule is to test the Arduino code before generating the backend, and test the backend before generating the dashboard. That makes debugging considerably easier.

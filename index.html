@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-Commerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #222;
+        }
+        header {
+            background: #173b68;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+        nav {
+            background: #102b4e;
+            padding: 12px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        button {
+            background: #173b68;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My E-Commerce Store</h1>
+        <p>Simple products, simple shopping!</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <main id="home">
+        <h2>Welcome to Our Store</h2>
+        <p>Explore our products below.</p>
+
+        <section id="products" class="products">
+            <div class="product">
+                <h3>Headphones</h3>
+                <p>Price: ₹999</p>
+                <button onclick="addToCart('Headphones')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <h3>Smart Watch</h3>
+                <p>Price: ₹1,499</p>
+                <button onclick="addToCart('Smart Watch')">Add to Cart</button>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>This is a demonstration e-commerce website.</p>
+            <p id="cart">Cart items: 0</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Practical Demo — AWS Static Website Hosting</p>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+
+        function addToCart(product) {
+            cartCount++;
+            document.getElementById("cart").textContent =
+                "Cart items: " + cartCount;
+            alert(product + " added to cart!");
+        }
+    </script>
+</body>
+</html>
